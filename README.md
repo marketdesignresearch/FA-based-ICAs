@@ -1,6 +1,6 @@
 # Fourier Analysis-based Iterative Combinatorial Auctions
 
-This is a piece of software used for computing the outcome of the HYBRID mechanisms and MLCA. The algorithms are described in detail in the attached paper.
+This is a piece of software used for computing the outcome of the HYBRID mechanisms and MLCA. The algorithms are described in detail in the paper [Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749).
 
 
 ## Requirements
