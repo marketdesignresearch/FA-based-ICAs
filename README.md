@@ -45,3 +45,7 @@ The algorithm for computing WHT sparse approximations was provided to us by the 
 [1] Learning Set Functions that are Sparse in Non-Orthogonal Fourier Bases https://arxiv.org/abs/2010.00439
 
 [2] Efficiently Learning Fourier Sparse Set Functions https://papers.nips.cc/paper/2019/hash/c77331e51c5555f8f935d3344c964bd5-Abstract.html
+
+## Contact
+
+Maintained by Jakob Weissteiner (weissteiner) and Chris Wendler (chrislybaer)
