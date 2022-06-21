@@ -24,33 +24,46 @@ if __name__ == '__main__':
 
     # %% Define Set Function v: 2^M -> R_+ for spectral analysis
 
-    # EXAMPLE LSVM NATIONAL BIDDER:
+    # YOUR SET FUNCTION v: (uncomment if you use your own set function)
+    # ---------------------------------------------------------------------------------------
+    # m = ...
+    # def v(x):
+    #    return ...
+    # ---------------------------------------------------------------------------------------
+
+    # EXAMPLE LSVM (or GSVM) NATIONAL (or REGIONAL) BIDDER (comment if you use your set function):
     # ---------------------------------------------------------------------------------------
     # For this example we use as set function v the national bidder from the SATS domain LSVM.
 
     # SELECT **********************
-    #load_flag = False
-    sats_value_model = 'LSVM'
-    sats_bidder_type = 'national'
+    sats_value_model = 'LSVM' # select from 'GSVM' and 'LSVM'
+    sats_bidder_type = 'national' # select from 'regional' and 'national'
     seed = 1
     # *****************************
+    if sats_value_model == 'LSVM':
+        SATS_auction_instance = PySats.getInstance().create_lsvm(seed=seed, isLegacyLSVM=True)
+        bidder_type_to_id_mapping = {'regional':[1,2,3,4,5],'national':[0]}
+        bidder_id = random.sample(bidder_type_to_id_mapping[sats_bidder_type],1)[0]
+    elif sats_value_model == 'GSVM':
+        SATS_auction_instance = PySats.getInstance().create_gsvm(seed=seed, isLegacyGSVM=True)
+        bidder_type_to_id_mapping = {'regional':[0,1,2,3,4,5],'national':[6]}
+        bidder_id = random.sample(bidder_type_to_id_mapping[sats_bidder_type],1)[0]
+    else:
+        raise NotImplementedError(f'sats_value_model:{sats_value_model}')
 
-
-    SATS_auction_instance = PySats.getInstance().create_lsvm(seed=seed, isLegacyLSVM=True)
-    m = len(SATS_auction_instance.get_good_ids()) # number of items (size pof ground set); worksup to m=32
-    bidder_type_to_id_mapping = {'regional':[1,2,3,4,5],'national':[0]}
-    bidder_id = random.sample(bidder_type_to_id_mapping[sats_bidder_type],1)[0]
-
+    m = len(SATS_auction_instance.get_good_ids()) # number of items (size pof ground set); works up to m=32
+    
     # create set function v, which gets as input a indicator list of size m, representing the set, and outputs a real number.
     def v(x):
         return SATS_auction_instance.calculate_value(bidder_id=bidder_id,
                                                      goods_vector=x)
 
-    # test
+    # ---------------------------------------------------------------------------------------
+
+    # evaluate v at empty and full bundle (i.e, set).
     print('\n\nCheck set function v:')
     print(f'v((0,...,0))) = {v([0]*m):6.2f}')
     print(f'v((1,...,1))) = {v([1]*m):.2f}')
-    # ---------------------------------------------------------------------------------------
 
     # %%
     stored_indicators = {}
@@ -81,7 +94,7 @@ if __name__ == '__main__':
     print('\n2. calculate full set function v...')
     start_v = datetime.now()
     start = time.time()
-    gt_vecs = [np.asarray([v(x) for x in indicators])]
+    v_vec = [np.asarray([v(x) for x in indicators])]
     end_v = datetime.now()
     end = time.time()
     print_elapsed_time(end_v-start_v)
@@ -97,8 +110,8 @@ if __name__ == '__main__':
     # A. WHT
     print('calculate WHT...')
     start_WHT = datetime.now()
-    gt_whts = [dssp.fwht(vec.astype(np.float64)) for vec in gt_vecs][0]
-    gt_whts = np.asarray(gt_whts)/2**m
+    v_wht = [dssp.fwht(vec.astype(np.float64)) for vec in v_vec][0]
+    v_wht = np.asarray(v_wht)/2**m
     end_WHT = datetime.now()
     print_elapsed_time(end_WHT-start_WHT)
     #
@@ -106,7 +119,7 @@ if __name__ == '__main__':
     # B. FT3 = Polynomial Representation
     print('calculate FT3...')
     start_FT3 = datetime.now()
-    gt_dsft3s = [dssp.fdsft3(vec.astype(np.float64)) for vec in gt_vecs][0]
+    v_ft3 = [dssp.fdsft3(vec.astype(np.float64)) for vec in v_vec][0]
     end_FT3 = datetime.now()
     print_elapsed_time(end_FT3-start_FT3)
     #
@@ -114,7 +127,7 @@ if __name__ == '__main__':
     # C. FT4
     print('calculate FT4...')
     start_FT4 = datetime.now()
-    gt_dsft4s = [dssp.fdsft4(vec.astype(np.float64)) for vec in gt_vecs][0]
+    v_ft4 = [dssp.fdsft4(vec.astype(np.float64)) for vec in v_vec][0]
     end_FT4 = datetime.now()
     print_elapsed_time(end_FT4-start_FT4)
     #
@@ -122,33 +135,29 @@ if __name__ == '__main__':
     time_dict[seed]['time_fourier_transforms'] = (end - start) / 60
     # ---------------------------------------------------------------------------------
 
-
-
-
     # 4. save fourier transforms and timings
     # ---------------------------------------------------------------------------------
     print('\n4. saving Fourier transforms...')
-    data_dict = {'m':m,
+    results_dict = {'m':m,
                  'seed':seed,
-                 'vecs':gt_vecs,
-                 'whts':gt_whts,
-                 'dsft3s':gt_dsft3s,
-                 'dsft4s':gt_dsft4s}
-    pickle.dump(data_dict,open('spectral_analysis_precomputed_data.pkl', 'wb'))
-    json.dump(time_dict, open('spectral_analysis_elapsed_times.json','w'))
+                 'v_vec':v_vec,
+                 'v_wht':v_wht,
+                 'v_ft3':v_ft3,
+                 'v_ft4':v_ft4}
+    pickle.dump(results_dict,open('spectral_analysis-results.pkl', 'wb'))
+    json.dump(time_dict, open('spectral_analysis-elapsed-times.json','w'))
     # ---------------------------------------------------------------------------------
-
-
-
 
     # 5. spectral plot
     # ---------------------------------------------------------------------------------
-    print('\n5. plot spectral energy...')
-    plot_spectrum(ft3 = gt_dsft3s,
-                  ft4 = gt_dsft4s,
-                  wht = gt_whts,
+    targetpath=os.path.join('spectral_analysis-energy-distribution-plot.pdf')
+    print('\n5. plot spectral energy distribution...')
+    print(f'saved as {targetpath})')
+    plot_spectrum(ft3 = v_ft3,
+                  ft4 = v_ft4,
+                  wht = v_wht,
                   m=m,
-                  targetpath=os.path.join('spectral_analysis_energy_distribution.pdf'),
+                  targetpath=targetpath,
                   flag_rescale=True,
                   )
     # ---------------------------------------------------------------------------------
