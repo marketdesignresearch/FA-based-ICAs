@@ -96,9 +96,14 @@ Note that as an example, we provide various bidders' value functions $v$ from th
 ```python
 # %% Define Set Function v: 2^M -> R_+ for spectral analysis
 
-    # %% Define Set Function v: 2^M -> R_+ for spectral analysis
+    # YOUR SET FUNCTION v: (uncomment if you use your own set function)
+    # ---------------------------------------------------------------------------------------
+    # m = ...
+    # def v(x):
+    #    return ...
+    # ---------------------------------------------------------------------------------------
 
-    # EXAMPLE LSVM NATIONAL BIDDER (comment if you use your set function):
+    # EXAMPLE LSVM (or GSVM) NATIONAL (or REGIONAL) BIDDER (comment if you use your set function):
     # ---------------------------------------------------------------------------------------
     # For this example we use as set function v the national bidder from the SATS domain LSVM.
 
@@ -107,12 +112,19 @@ Note that as an example, we provide various bidders' value functions $v$ from th
     sats_bidder_type = 'national' # select from 'regional' and 'national'
     seed = 1
     # *****************************
+    if sats_value_model == 'LSVM':
+        SATS_auction_instance = PySats.getInstance().create_lsvm(seed=seed, isLegacyLSVM=True)
+        bidder_type_to_id_mapping = {'regional':[1,2,3,4,5],'national':[0]}
+        bidder_id = random.sample(bidder_type_to_id_mapping[sats_bidder_type],1)[0]
+    elif sats_value_model == 'GSVM':
+        SATS_auction_instance = PySats.getInstance().create_gsvm(seed=seed, isLegacyGSVM=True)
+        bidder_type_to_id_mapping = {'regional':[0,1,2,3,4,5],'national':[6]}
+        bidder_id = random.sample(bidder_type_to_id_mapping[sats_bidder_type],1)[0]
+    else:
+        raise NotImplementedError(f'sats_value_model:{sats_value_model}')
 
-    SATS_auction_instance = PySats.getInstance().create_lsvm(seed=seed, isLegacyLSVM=True)
     m = len(SATS_auction_instance.get_good_ids()) # number of items (size pof ground set); works up to m=32
-    bidder_type_to_id_mapping = {'regional':[1,2,3,4,5],'national':[0]}
-    bidder_id = random.sample(bidder_type_to_id_mapping[sats_bidder_type],1)[0]
-
+    
     # create set function v, which gets as input a indicator list of size m, representing the set, and outputs a real number.
     def v(x):
         return SATS_auction_instance.calculate_value(bidder_id=bidder_id,
@@ -124,7 +136,6 @@ Note that as an example, we provide various bidders' value functions $v$ from th
     print('\n\nCheck set function v:')
     print(f'v((0,...,0))) = {v([0]*m):6.2f}')
     print(f'v((1,...,1))) = {v([1]*m):.2f}')
-
 ```
 
 Once the set function $v$ is defined, run
@@ -205,4 +216,13 @@ The algorithm for computing WHT sparse approximations was provided to us by the 
 
 ## Contact
 
-Maintained by Jakob Weissteiner (weissteiner) and Chris Wendler (chrislybaer)
+Maintained by
+
+Jakob Weissteiner (weissteiner)<br />
+Website: www.jakobweissteiner.com<br />
+E-mail: weissteiner@ifi.uzh.ch<br />
+
+
+
+Chris Wendler (chrislybaer)<br />
+E-mail: chris.wendler@inf.ethz.ch
