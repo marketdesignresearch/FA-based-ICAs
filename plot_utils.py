@@ -109,11 +109,11 @@ def plot_spectrum(ft3,
 
     plt.setp(ax[1].get_yticklabels(), visible=False)
     plt.setp(ax[2].get_yticklabels(), visible=False)
-    plt.tight_layout()
-    plt.show()
 
     if targetpath is not None:
         plt.savefig(targetpath, format='pdf')
+    plt.tight_layout()
+    plt.show()
 
 # %%
 def timediff_d_h_m_s(td):
