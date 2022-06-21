@@ -1,9 +1,32 @@
 # Fourier Analysis-based Iterative Combinatorial Auctions
 
-This piece of software provides tools for **set function Fourier analysis**. Specifically, it enables to
+This piece of software provides tools for **set function Fourier analysis**. Details can be found in the following paper:
 
-1. analyse the spectral energy distribution in three different Fourier domains: FT3, FT4, and WTH of your own set function $v:\\\{0,1\\\}^m\to \mathbb{R}$ (note that $v(\cdot)$ does not necessarily has to be a bidder's value function but can be an arbitrary set function).
-2. apply set function Fourier analysis to combinatorial auctions and compute the outcome of the HYBRID mechanisms and MLCA, which are described in detail in the paper [Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749).
+**[Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749)**<br/>
+Jakob Weissteiner, Chris Wendler, Sven Seuken, Ben Lubin, and Markus Püschel.<br/>
+*In Proceedings of the Thirty-first International joint Conference on Artificial Intelligence IJCAI '22, Vienna, AUT, July 2022.*<br/>
+Full paper version including appendix: [Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749)
+
+If you use this software for academic purposes, please cite the above in your work. Bibtex for this reference is as follows:
+
+```tex
+@InProceedings{weissteiner2022fourier,
+  author    = {Weissteiner, Jakob and Wendler, Chris and Seuken, Sven and Lubin, Ben and P{\"u}schel, Markus},
+  title     = {Fourier Analysis-based Iterative Combinatorial Auctions},
+  booktitle = {Proceedings of the 31st International Joint Conference on Artificial Intelligence},
+  year      = {2022},
+}
+```
+
+Specifically, this piece of software enables
+
+**i. in Section 3.1**
+
+to analyse the ***spectral energy distribution*** in three different Fourier domains: FT3, FT4, and WTH of your own set function $v:\\\{0,1\\\}^m\to \mathbb{R}$ (note that $v(\cdot)$ does not necessarily has to be a bidder's value function but can be an arbitrary set function).
+
+**ii. in Section 3.2**
+
+to ***apply set function Fourier analysis to combinatorial auctions*** and compute the outcome of the HYBRID mechanisms and MLCA, which are described in detail in the paper [Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749).
 
 
 ## 1. Requirements
