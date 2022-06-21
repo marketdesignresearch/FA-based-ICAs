@@ -7,3 +7,4 @@ docplex==2.11.176
 tqdm
 matplotlib
 numpy
+protobuf<=3.20.1
