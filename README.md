@@ -31,7 +31,7 @@ to ***apply set function Fourier analysis to combinatorial auctions*** and compu
 
 ## 1. Requirements
 
-* Python 3.6
+* Python 3.7
 * Java 8 (or later)
   * Java environment variables set as described [here](https://pyjnius.readthedocs.io/en/stable/installation.html#installation)
 * JAR-files ready (they should already be)
@@ -51,9 +51,18 @@ $ pip install -r requirements.txt
 
 ```
 
-## 3. How to run
+## 3. Example installation using conda
+```bash
+conda create -n ica python=3.7
+conda activate ica
+conda install openjdk
+pip install cython
+pip install -r requirements.txt
+```
 
-### 3.1 Spectral Energy Analysis of Set Functions
+## 4. How to run
+
+### 4.1 Spectral Energy Analysis of Set Functions
 
 Let $M:=\\\{1,\ldots,m\\\}$ denote the ground set (e.g., number of items in a combinatorial auctions), and let
 
@@ -192,7 +201,7 @@ where ***v_vec*** is the vector of size $2^m$ representing the (whole) set funct
 ##### IMPORTANT
 Note that this software currently only works up to $m\approx30$. Calculating the exact Fourier transforms for $m\>30$ requires using sparse FT algorithms instead.
 
-### 3.2 Iterative Combinatorial Auction Mechanisms
+### 4.2 Iterative Combinatorial Auction Mechanisms
 
 To run any of the three hybrid mechanisms: HYBRID, HYBRID-FR, or HYBRID-FR-FA use
 ```bash
