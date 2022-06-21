@@ -47,7 +47,7 @@ Prepare your python environment (whether you do that with `conda`, `virtualenv`,
 Using pip:
 
 ```bash
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 
 ```
 
