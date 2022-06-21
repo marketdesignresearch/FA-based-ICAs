@@ -6,3 +6,4 @@ pyjnius==1.3.0
 docplex==2.11.176
 tqdm
 matplotlib
+numpy
