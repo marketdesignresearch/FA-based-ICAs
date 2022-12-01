@@ -1,5 +1,7 @@
 # Fourier Analysis-based Iterative Combinatorial Auctions
 
+Published at [IJCAI 2022](https://ijcai-22.org/)
+
 This piece of software provides tools for **set function Fourier analysis**. Details can be found in the following paper:
 
 **[Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749)**<br/>
