@@ -235,5 +235,5 @@ E-mail: weissteiner@ifi.uzh.ch<br />
 
 
 
-Chris Wendler (chrislybaer)<br />
+Chris Wendler (wendlerc)<br />
 E-mail: chris.wendler@inf.ethz.ch
