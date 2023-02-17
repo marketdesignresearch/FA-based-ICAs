@@ -7,7 +7,7 @@ This piece of software provides tools for **set function Fourier analysis**. Det
 **Fourier Analysis-based Iterative Combinatorial Auctions**<br/>
 Jakob Weissteiner, Chris Wendler, Sven Seuken, Ben Lubin, and Markus Püschel.<br/>
 *In Proceedings of the Thirty-first International joint Conference on Artificial Intelligence IJCAI'22, Vienna, AUT, July 2022.*<br/>
-Full paper version including appendix: [[pdf]](https://arxiv.org/abs/2009.10749)
+Full paper version including appendix: [[pdf](https://arxiv.org/abs/2009.10749)]
 
 If you use this software for academic purposes, please cite the above in your work. Bibtex for this reference is as follows:
 
