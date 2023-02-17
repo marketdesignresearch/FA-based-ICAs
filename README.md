@@ -4,7 +4,7 @@ Published at [IJCAI 2022](https://ijcai-22.org/)
 
 This piece of software provides tools for **set function Fourier analysis**. Details can be found in the following paper:
 
-**[Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749)**<br/>
+**Fourier Analysis-based Iterative Combinatorial Auctions**<br/>
 Jakob Weissteiner, Chris Wendler, Sven Seuken, Ben Lubin, and Markus Püschel.<br/>
 *In Proceedings of the Thirty-first International joint Conference on Artificial Intelligence IJCAI'22, Vienna, AUT, July 2022.*<br/>
 Full paper version including appendix: [Fourier Analysis-based Iterative Combinatorial Auctions](https://arxiv.org/abs/2009.10749)
